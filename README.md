@@ -6,8 +6,8 @@ This is a small set of home directory config files targeted for OS X 10.8.
 
     git clone https://github.com/elbongurk/dotfiles
     cd dotfiles
-    ln -s profile ~/.profile
-    ln -s gemrc ~/.gemrc
+    ln -s `pwd`/profile ~/.profile
+    ln -s `pwd`/gemrc ~/.gemrc
 
 ## Requirements
 
