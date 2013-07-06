@@ -1,6 +1,6 @@
 # dotfiles
 
-This is a small set of home directory config files targeted for OS X 10.8.
+This is a small set of home directory config files targeted for Ruby development on OS X.
 
 ## Installation
 
@@ -28,3 +28,6 @@ This is a small set of home directory config files targeted for OS X 10.8.
     # Install Gems
     gem update --system
     gem install bundler rails
+
+    # Install Pow
+    curl get.pow.cx | sh
