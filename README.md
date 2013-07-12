@@ -19,7 +19,7 @@ This is a small set of home directory config files targeted for Ruby development
     # Setup Postgres
     initdb /usr/local/var/postgres -E utf8
     ln -sfv /usr/local/opt/postgresql/*.plist ~/Library/LaunchAgents
-    load ~/Library/LaunchAgents/homebrew.mxcl.postgresql.plist
+    launchctl load ~/Library/LaunchAgents/homebrew.mxcl.postgresql.plist
 
     # Setup Ruby
     CONFIGURE_OPTS="--with-openssl-dir=`brew --prefix openssl`" rbenv install 2.0.0-p195
