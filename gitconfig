@@ -1,12 +1,14 @@
 [push]
-	default = simple
+  default = simple
 [color]
   ui = auto
 [alias]
+  au = add --update
+  aa = add --all
   co = checkout
   ci = commit
   st = status -sb
+  cb = checkout -b
   pr = !hub pull-request
 [include]
   path = .gitconfig.local
-
