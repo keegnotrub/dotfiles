@@ -15,7 +15,7 @@ This is a small set of home directory config files targeted for Ruby development
     # Install Homebrew
     ruby <(curl -fsS https://raw.github.com/mxcl/homebrew/go)
     brew update
-    brew install postgres rbenv ruby-build heroku-toolbelt hub
+    brew install postgres rbenv ruby-build heroku-toolbelt hub git bash-completion
 
     # Setup Postgres
     initdb /usr/local/var/postgres -E utf8
