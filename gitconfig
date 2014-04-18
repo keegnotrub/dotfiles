@@ -4,9 +4,10 @@
   ui = auto
 [alias]
   au = add --update
-  aa = add --all
+  aa = add --all  
   co = checkout
   ci = commit
+  dt = difftool
   st = status -sb
   cb = checkout -b
   pr = !hub pull-request
