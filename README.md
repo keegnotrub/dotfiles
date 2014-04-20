@@ -4,7 +4,7 @@ This is a small set of home directory config files targeted for Ruby development
 
 ## Installation
 
-    git clone https://github.com/elbongurk/dotfiles
+    git clone https://github.com/keegnotrub/dotfiles
     cd dotfiles
     ln -s `pwd`/profile ~/.profile
     ln -s `pwd`/gemrc ~/.gemrc
