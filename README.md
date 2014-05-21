@@ -1,6 +1,6 @@
 # dotfiles
 
-This is a small set of home directory config files targeted for Ruby development on OS X.
+This is a small set of home directory config files targeted for Ruby and iOS development on OS X.
 
 ## Installation
 
@@ -9,6 +9,7 @@ This is a small set of home directory config files targeted for Ruby development
     ln -s `pwd`/profile ~/.profile
     ln -s `pwd`/gemrc ~/.gemrc
     ln -s `pwd`/gitconfig ~/.gitconfig
+    ln -s `pwd`/lldbinit ~/.lldbinit
 
 ## Requirements
 
@@ -23,8 +24,8 @@ This is a small set of home directory config files targeted for Ruby development
     launchctl load ~/Library/LaunchAgents/homebrew.mxcl.postgresql.plist
 
     # Setup Ruby
-    rbenv install 2.1.1
-    rbenv global 2.1.1
+    rbenv install 2.1.2
+    rbenv global 2.1.2
 
     # Install Gems
     gem update --system
