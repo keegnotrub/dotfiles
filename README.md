@@ -4,19 +4,18 @@ This is a small set of home directory config files targeted for Ruby and iOS dev
 
 ## Installation
 
-    git clone https://github.com/keegnotrub/dotfiles
-    cd dotfiles
-    ln -s `pwd`/profile ~/.profile
-    ln -s `pwd`/gemrc ~/.gemrc
-    ln -s `pwd`/gitconfig ~/.gitconfig
-    ln -s `pwd`/lldbinit ~/.lldbinit
+After running the requirements use [RCM](https://github.com/thoughtbot/rcm):
+
+    git clone http://github.com/keegnotrub/dotfiles ~/.dotfiles
+    rcup -v -x README.md
 
 ## Requirements
 
     # Install Homebrew
     ruby <(curl -fsS https://raw.github.com/mxcl/homebrew/go)
     brew update
-    brew install postgres rbenv ruby-build heroku-toolbelt hub git bash-completion
+    brew tap thoughtbot/formulae
+    brew install postgres rbenv ruby-build heroku-toolbelt hub git bash-completion liftoff rcm
 
     # Setup Postgres
     initdb /usr/local/var/postgres -E utf8
