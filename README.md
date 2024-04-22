@@ -1,21 +1,21 @@
 # dotfiles
 
-This is a small set of home directory config files targeted for Android and iOS development on OS X.
+This is a small set of home directory config files targeted for GitHub's codespaces.
 
 ## Installation
 
-After running the requirements use [Homebrew](http://brew.sh) and [RCM](https://github.com/thoughtbot/rcm):
-
-    git clone http://github.com/keegnotrub/dotfiles ~/.dotfiles
-    brew bundle ~/.dotfiles
-    rcup -v -x README.md -x Brewfile
+Adjust your [codespaces settings](https://github.com/settings/codespaces) to `Automatically install dotfiles` from [keegnotrub/dotfiles](https://github.com/keegnotrub/dotfiles)
 
 ## Requirements
-    # Install Xcode
-    open https://itunes.apple.com/us/app/xcode/id497799835
 
     # Install Command Line Tools for Xcode
     xcode-select --install
 
     # Install Homebrew
-    ruby -e "$(curl -fsSL https://raw.github.com/Homebrew/homebrew/go/install)"
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+    
+    # Install GitHub CLI
+    brew install gh
+    
+    # Authenticate GitHub CLI
+    gh auth login

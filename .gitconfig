@@ -1,0 +1,38 @@
+[user]
+  name = Ryan Krug
+  email = ryan.krug@thoughtbot.com
+[init]
+	defaultBranch = main
+	templatedir = ~/.git_template
+[push]
+  default = current	
+[color]
+  ui = always
+[alias]
+  aa = add --all
+  ap = add --patch
+	au = add --update
+  co = checkout
+	ci = commit -v
+  pf = push --force-with-lease
+  dt = difftool
+  st = status -sb
+	cb = checkout -b
+  branches = for-each-ref --sort=-committerdate --format=\"%(color:blue)%(authordate:relative)\t%(color:red)%(authorname)\t%(color:white)%(color:bold)%(refname:short)\" refs/remotes
+[core]
+  excludesfile = ~/.gitignore
+  autocrlf = input	
+	pager = cat
+[merge]
+	ff = only
+[commit]
+	template = ~/.gitmessage
+[fetch]
+  prune = true	
+[rebase]
+	autosquash = true
+[diff]
+  colorMoved = zebra	
+	tool = ediffclient
+[difftool "ediffclient"]
+  cmd = emacsclient --eval \"(ediff-files \\\"$LOCAL\\\" \\\"$REMOTE\\\")\"
