@@ -35,4 +35,4 @@
   colorMoved = zebra  
   tool = ediffclient
 [difftool "ediffclient"]
-  cmd = emacsclient --eval \"(ediff-files \\\"$LOCAL\\\" \\\"$REMOTE\\\")\"
+  cmd = $EDITOR --eval \"(ediff-files \\\"$LOCAL\\\" \\\"$REMOTE\\\")\"
