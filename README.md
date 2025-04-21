@@ -8,7 +8,7 @@ After running the requirements, use [GNU Stow](https://www.gnu.org/software/stow
 
     git clone http://github.com/keegnotrub/dotfiles
     cd dotfiles
-    stow --dotfiles -t $HOME
+    stow --dotfiles -t $HOME .
 
 ## Requirements
 
