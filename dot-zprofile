@@ -1,0 +1,26 @@
+# Emacs
+export EDITOR="emacsclient"
+export VISUAL="emacsclient"
+
+# Terminal
+export LANG="en_US.UTF-8"
+export CLICOLOR="1"
+
+# Ruby
+export RUBY_YJIT_ENABLE="1"
+export OBJC_DISABLE_INITIALIZE_FORK_SAFETY="YES"
+
+# Heroku
+if [ -d /opt/heroku ]; then
+    export PATH="/opt/heroku/bin:$PATH"
+fi
+
+# MacPorts
+if [ -d /opt/local ]; then
+    export PATH="/opt/local/bin:/opt/local/sbin:/opt/local/lib/ImageMagick7/bin:$PATH"
+fi
+
+# API keys
+if [ -f $HOME/.secrets ]; then
+   source $HOME/.secrets
+fi

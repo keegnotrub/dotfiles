@@ -1,0 +1,9 @@
+#!/usr/bin/env sh
+
+set -e
+
+PATH="/opt/local/bin:$PATH"
+trap 'rm -f "TAGS~"' EXIT
+git ls-files "*.rb" | \
+  etags-emacs - -f"TAGS~"
+mv "TAGS~" "TAGS"

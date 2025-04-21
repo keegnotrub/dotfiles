@@ -1,6 +1,6 @@
 [user]
   name = Ryan Krug
-  email = ryan.krug@thoughtbot.com
+  email = ryank@kit.com
 [init]
   defaultBranch = main
   templatedir = ~/.git_template
@@ -18,7 +18,6 @@
   dt = difftool
   st = status -sb
   cb = checkout -b
-  branches = for-each-ref --sort=-committerdate --format=\"%(color:blue)%(authordate:relative)\t%(color:red)%(authorname)\t%(color:white)%(color:bold)%(refname:short)\" refs/remotes
 [core]
   excludesfile = ~/.gitignore
   autocrlf = input  
@@ -35,4 +34,4 @@
   colorMoved = zebra  
   tool = ediffclient
 [difftool "ediffclient"]
-  cmd = $EDITOR --eval \"(ediff-files \\\"$LOCAL\\\" \\\"$REMOTE\\\")\"
+	cmd = $VISUAL --eval \"(ediff-files \\\"$LOCAL\\\" \\\"$REMOTE\\\")\"

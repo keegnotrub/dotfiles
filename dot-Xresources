@@ -1,0 +1,48 @@
+xterm*termName: xterm-256color
+xterm*loginshell: true
+
+xterm*faceName: SF Mono
+xterm*faceSize: 12
+
+xterm*translations: #override Meta <KeyPress> V: insert-selection(PRIMARY, CUT_BUFFER0)
+xterm*saveLines: 32767
+
+! Theme: modus-operandi
+xterm*background: #ffffff
+xterm*foreground: #000000
+xterm*color0:     #000000
+xterm*color1:     #a60000
+xterm*color2:     #005e00
+xterm*color3:     #813e00
+xterm*color4:     #0031a9
+xterm*color5:     #721045
+xterm*color6:     #00538b
+xterm*color7:     #bfbfbf
+xterm*color8:     #595959
+xterm*color9:     #972500
+xterm*color10:    #315b00
+xterm*color11:    #70480f
+xterm*color12:    #2544bb
+xterm*color13:    #5317ac
+xterm*color14:    #005a5f
+xterm*color15:    #ffffff
+
+! Theme: modus-vivendi
+! xterm*background: #000000
+! xterm*foreground: #ffffff
+! xterm*color0:     #000000
+! xterm*color1:     #ff8059
+! xterm*color2:     #44bc44
+! xterm*color3:     #d0bc00
+! xterm*color4:     #2fafff
+! xterm*color5:     #feacd0
+! xterm*color6:     #00d3d0
+! xterm*color7:     #bfbfbf
+! xterm*color8:     #595959
+! xterm*color9:     #ef8b50
+! xterm*color10:    #70b900
+! xterm*color11:    #c0c530
+! xterm*color12:    #79a8ff
+! xterm*color13:    #b6a0ff
+! xterm*color14:    #6ae4b9
+! xterm*color15:    #ffffff
