@@ -13,7 +13,7 @@
   ap = add --patch
   au = add --update
   co = checkout
-  ci = commit -v
+  ci = commit
   pf = push --force-with-lease
   dt = difftool
   st = status -sb
@@ -26,6 +26,7 @@
   ff = only
 [commit]
   template = ~/.gitmessage
+  verbose = true
 [fetch]
   prune = true  
 [rebase]
