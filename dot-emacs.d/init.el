@@ -225,7 +225,7 @@
         (compilation-buffer-name-function 'project-prefixed-buffer-name))
     (if (comint-check-proc (project-prefixed-buffer-name "vite-ruby"))
         (pop-to-buffer (project-prefixed-buffer-name "vite-ruby"))
-      (compile "bundle exec bin/vite dev" 'vite-ruby-mode))))
+      (compile "bundle exec vite dev" 'vite-ruby-mode))))
 
 ;;key bindings
 (global-set-key (kbd "C-x p TAB") 'project-agent-completion-at-point)
