@@ -125,9 +125,9 @@
   compilation-mode "Rails Server"
   "Major mode for rails server compilation.")
 
-(define-derived-mode rails-webpack-mode
-  compilation-mode "Rails Webpack"
-  "Major mode for rails webpack compilation.")
+(define-derived-mode vite-ruby-mode
+  compilation-mode "Vite Ruby"
+  "Major mode for vite ruby compilation.")
 
 (define-derived-mode agent-mode
   gfm-view-mode "Agent"
@@ -219,13 +219,13 @@
         (pop-to-buffer (project-prefixed-buffer-name "rails-server"))
       (compile "bundle exec rails s" 'rails-server-mode))))
 
-(defun project-rails-webpack ()
+(defun project-vite-ruby ()
   (interactive)
   (let ((default-directory (project-root (project-current t)))
         (compilation-buffer-name-function 'project-prefixed-buffer-name))
-    (if (comint-check-proc (project-prefixed-buffer-name "rails-webpack"))
-        (pop-to-buffer (project-prefixed-buffer-name "rails-webpack"))
-      (compile "bin/webpack-dev-server" 'rails-webpack-mode))))
+    (if (comint-check-proc (project-prefixed-buffer-name "vite-ruby"))
+        (pop-to-buffer (project-prefixed-buffer-name "vite-ruby"))
+      (compile "bundle exec bin/vite dev" 'vite-ruby-mode))))
 
 ;;key bindings
 (global-set-key (kbd "C-x p TAB") 'project-agent-completion-at-point)
