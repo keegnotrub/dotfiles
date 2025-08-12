@@ -129,10 +129,6 @@
   compilation-mode "Vite Ruby"
   "Major mode for vite ruby compilation.")
 
-(define-derived-mode agent-mode
-  gfm-view-mode "Agent"
-  "Major mode for agent compilation.")
-
 ;;custom defuns
 (require 'project)
 
@@ -148,37 +144,6 @@
     (when (file-exists-p tags-file-name)
       (call-interactively #'xref-find-definitions))))
 
-(defun project-agent ()
-  (interactive)
-  (let ((default-directory (project-root (project-current t)))
-        (compilation-buffer-name-function 'project-prefixed-buffer-name)
-        (skill (cond ((derived-mode-p 'ruby-mode) "rails")
-                     ((derived-mode-p 'js-mode) "react")
-                     (t "web")))
-        (cmd (completing-read
-              "agent command: "
-              '(("ask") ("debug") ("explain") ("improve")))))
-    (compile
-     (format "%s | agent %s %s"
-             (cond
-              ((and (buffer-file-name) (use-region-p) (= (current-column) 0))
-               (format "sed -n '%dq;%d,%dp' %s"
-                       (line-number-at-pos (region-end))
-                       (line-number-at-pos (region-beginning))
-                       (line-number-at-pos (region-end))
-                       (shell-quote-argument (file-relative-name (buffer-file-name))) t))
-              ((use-region-p)
-               (format "printf %%s %S"
-                       (buffer-substring-no-properties (region-beginning) (region-end)) t))
-              ((and (buffer-file-name) (not (string-equal cmd "ask")))
-               (format "cat %s"
-                       (shell-quote-argument (file-relative-name (buffer-file-name))) t))
-              (t
-               (format "printf %%s %S"
-                       (read-string "agent context: ") t)))
-             skill cmd t)
-     'agent-mode)))
-
 (defun project-agent-completion-at-point ()
   (interactive)
   (let ((default-directory (project-root (project-current t))))
@@ -186,7 +151,7 @@
       (save-buffer)
       (insert
        (shell-command-to-string
-        (format "cat %s | agentc %d"
+        (format "cat %s | fim %d"
                 (shell-quote-argument (file-relative-name (buffer-file-name)))
                 (1- (point)) t))))))
 
@@ -227,6 +192,15 @@
         (pop-to-buffer (project-prefixed-buffer-name "vite-ruby"))
       (compile "bundle exec vite dev" 'vite-ruby-mode))))
 
+(defun project-agent ()
+  (interactive)
+  (let ((default-directory (project-root (project-current t))))
+    (if (vterm-check-proc (project-prefixed-buffer-name "agent"))
+        (pop-to-buffer (project-prefixed-buffer-name "agent"))
+      (vterm (project-prefixed-buffer-name "agent"))
+      (vterm-send-string "uvx --python 3.12 --from openhands-ai openhands")
+      (vterm-send-return))))
+
 ;;key bindings
 (global-set-key (kbd "C-x p TAB") 'project-agent-completion-at-point)
 
@@ -247,4 +221,5 @@
   (set-face-attribute 'default nil :font "SF Mono-16")
   ;;emacsclient
   (require 'git-commit)
+  (require 'vterm)
   (server-start))
