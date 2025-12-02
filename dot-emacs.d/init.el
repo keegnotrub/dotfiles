@@ -1,4 +1,5 @@
 ;;save compulsively instead
+(global-auto-revert-mode t)
 (setq make-backup-files nil)
 
 ;;we hates splash
@@ -27,7 +28,8 @@
 (setq package-archives '(("melpa" . "https://melpa.org/packages/")
                          ("elpa" . "https://elpa.gnu.org/packages/")))
 
-(setq package-list '(nyan-mode
+(setq package-list '(arduino-mode
+                     nyan-mode
                      web-mode
                      markdown-mode
                      yaml-mode
@@ -65,6 +67,10 @@
 ;;nyan-mode
 (when (package-installed-p 'nyan-mode)
   (nyan-mode 1))
+
+;;arduino-mode
+(when (package-installed-p 'arduino-mode)
+  (add-to-list 'auto-mode-alist '("\\.ino\\'" . arduino-mode)))
 
 ;;ruby-mode
 (when (package-installed-p 'ruby-mode)
@@ -129,6 +135,11 @@
   compilation-mode "Vite Ruby"
   "Major mode for vite ruby compilation.")
 
+(define-derived-mode agent-chat-mode
+  gfm-mode "Agent Chat"
+  "Major mode for agent chat compilation."
+  (setq-local buffer-read-only t))
+
 ;;custom defuns
 (require 'project)
 
@@ -144,6 +155,17 @@
     (when (file-exists-p tags-file-name)
       (call-interactively #'xref-find-definitions))))
 
+(defun project-agent-chat ()
+  (interactive)
+  (let ((default-directory (project-root (project-current t)))
+        (prompt (read-string-from-buffer "How can I help you today?" ""))
+        (tmp-file-name "tmp/prompt.md")
+        (compilation-buffer-name-function 'project-prefixed-buffer-name))
+    (unless (string-empty-p prompt)
+      (with-temp-file tmp-file-name
+        (insert prompt))
+      (compile (format "cat %s | chat" tmp-file-name t) 'agent-chat-mode))))
+
 (defun project-agent-completion-at-point ()
   (interactive)
   (let ((default-directory (project-root (project-current t))))
@@ -154,6 +176,8 @@
         (format "cat %s | fim %d"
                 (shell-quote-argument (file-relative-name (buffer-file-name)))
                 (1- (point)) t))))))
+
+(defalias 'project-agent 'project-agent-chat)
 
 (defun project-rspec ()
   (interactive)
@@ -192,17 +216,9 @@
         (pop-to-buffer (project-prefixed-buffer-name "vite-ruby"))
       (compile "bundle exec vite dev" 'vite-ruby-mode))))
 
-(defun project-agent ()
-  (interactive)
-  (let ((default-directory (project-root (project-current t))))
-    (if (vterm-check-proc (project-prefixed-buffer-name "agent"))
-        (pop-to-buffer (project-prefixed-buffer-name "agent"))
-      (vterm (project-prefixed-buffer-name "agent"))
-      (vterm-send-string "uvx --python 3.12 --from openhands-ai openhands")
-      (vterm-send-return))))
-
 ;;key bindings
 (global-set-key (kbd "C-x p TAB") 'project-agent-completion-at-point)
+(global-set-key (kbd "C-x p a") 'project-agent-chat)
 
 ;;window systems
 (when window-system
@@ -221,5 +237,4 @@
   (set-face-attribute 'default nil :font "SF Mono-16")
   ;;emacsclient
   (require 'git-commit)
-  (require 'vterm)
   (server-start))

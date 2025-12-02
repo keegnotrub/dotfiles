@@ -48,9 +48,9 @@ After running the requirements, use [GNU Stow](https://www.gnu.org/software/stow
     cd pass
     sudo make install
     
-    # Install fim
-    git clone https://github.com/keegnotrub/fim
-    cd fim
+    # Install agent
+    git clone https://github.com/keegnotrub/agent
+    cd agent
     sudo make install
     
 
