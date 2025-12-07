@@ -64,6 +64,14 @@
   (add-hook 'ediff-before-setup-hook #'my-store-pre-ediff-winconfig)
   (add-hook 'ediff-quit-hook #'my-restore-pre-ediff-winconfig))
 
+;;eshell
+(when (package-installed-p 'eshell)
+  (setq initial-major-mode 'eshell-mode)
+  (setq eshell-visual-commands
+      '("duckdb"))
+  (setq eshell-visual-subcommands
+        '(("cloudkit" "console" "db:console" "shell"))))
+
 ;;nyan-mode
 (when (package-installed-p 'nyan-mode)
   (nyan-mode 1))
