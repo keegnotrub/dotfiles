@@ -139,21 +139,20 @@
 
 ;;custom modes
 (define-derived-mode rspec-mode
-  compilation-mode "RSpec"
+  compilation-mode "rspec"
   "Major mode for rspec compilation.")
 
 (define-derived-mode rails-server-mode
-  compilation-mode "Rails Server"
+  compilation-mode "rails-server"
   "Major mode for rails server compilation.")
 
 (define-derived-mode vite-ruby-mode
-  compilation-mode "Vite Ruby"
+  compilation-mode "vite-ruby"
   "Major mode for vite ruby compilation.")
 
 (define-derived-mode agent-chat-mode
-  gfm-mode "Agent Chat"
-  "Major mode for agent chat compilation."
-  (setq-local buffer-read-only t))
+  compilation-mode "agent-chat"
+  "Major mode for agent chat compilation.")
 
 ;;custom defuns
 (require 'project)
@@ -174,7 +173,7 @@
   (interactive)
   (let ((default-directory (project-root (project-current t)))
         (prompt (read-string-from-buffer "How can I help you today?" ""))
-        (tmp-file-name "tmp/prompt.md")
+        (tmp-file-name (make-temp-file "agent-chat-"))
         (compilation-buffer-name-function 'project-prefixed-buffer-name))
     (unless (string-empty-p prompt)
       (with-temp-file tmp-file-name
