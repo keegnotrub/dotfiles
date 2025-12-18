@@ -72,6 +72,13 @@
   (setq eshell-visual-subcommands
         '(("cloudkit" "console" "db:console" "shell"))))
 
+;;term
+(add-hook 'term-mode-hook (lambda ()
+  (define-key term-raw-map (kbd "M-p") 'term-send-up)
+  (define-key term-raw-map (kbd "M-n") 'term-send-down)
+  (define-key term-raw-map (kbd "C-y") 'term-paste)
+  (define-key term-raw-map (kbd "C-w") 'clipboard-kill-ring-save)))
+
 ;;nyan-mode
 (when (package-installed-p 'nyan-mode)
   (nyan-mode 1))
@@ -179,11 +186,9 @@
   (let ((default-directory (project-root (project-current t))))
     (when (buffer-file-name)
       (save-buffer)
-      (insert
-       (shell-command-to-string
-        (format "cat %s | fim %d"
-                (shell-quote-argument (file-relative-name (buffer-file-name)))
-                (1- (point)) t))))))
+      (message
+       (format "Running: fim %d" (1- (point)) t))
+      (call-process "fim" (file-relative-name (buffer-file-name)) t nil (number-to-string (1- (point)))))))
 
 (defalias 'project-agent 'project-agent-chat)
 
