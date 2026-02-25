@@ -18,6 +18,9 @@
   dt = difftool
   st = status -sb
   cb = checkout -b
+  wl = worktree list
+  wa = worktree add
+  wr = worktree remove
 [core]
   excludesfile = ~/.gitignore
   autocrlf = input  

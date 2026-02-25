@@ -27,7 +27,7 @@ After running the requirements, use [GNU Stow](https://www.gnu.org/software/stow
     # Update ports
     sudo port -v selfupdate
     # Install Emacs
-    sudo port install aspell aspell-dict-en emacs emacs-mac-app
+    sudo port install aspell aspell-dict-en emacs emacs-mac-app-devel
     # Install Ruby
     sudo port install rust ruby_select ruby32 +yjit ImageMagick7 -x11
     # Install NodeJS

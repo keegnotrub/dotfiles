@@ -26,7 +26,8 @@
 ;;packages
 (require 'package)
 (setq package-archives '(("melpa" . "https://melpa.org/packages/")
-                         ("elpa" . "https://elpa.gnu.org/packages/")))
+                         ("elpa" . "https://elpa.gnu.org/packages/")
+                         ("nongnu" . "https://elpa.nongnu.org/nongnu/")))
 
 (setq package-list '(arduino-mode
                      nyan-mode
@@ -35,6 +36,7 @@
                      yaml-mode
                      git-modes
                      magit
+                     eat
                      company
                      bundler
                      inf-ruby))
@@ -68,16 +70,17 @@
 (when (package-installed-p 'eshell)
   (setq initial-major-mode 'eshell-mode)
   (setq eshell-visual-commands
-      '("duckdb"))
+      '("codex" "duckdb"))
   (setq eshell-visual-subcommands
-        '(("cloudkit" "console" "db:console" "shell"))))
+        '(("cloudkit" "console" "db:console" "shell")
+          ("ollama" "run"))))
 
-;;term
-(add-hook 'term-mode-hook (lambda ()
-  (define-key term-raw-map (kbd "M-p") 'term-send-up)
-  (define-key term-raw-map (kbd "M-n") 'term-send-down)
-  (define-key term-raw-map (kbd "C-y") 'term-paste)
-  (define-key term-raw-map (kbd "C-w") 'clipboard-kill-ring-save)))
+;;eat
+(when (package-installed-p 'eat)
+  (defun my-eat-semi-char-mode-map ()
+    (define-key eat-semi-char-mode-map (kbd "M-w") 'kill-ring-save))
+  (add-hook 'eat-mode-hook #'my-eat-semi-char-mode-map)
+  (add-hook 'eshell-first-time-mode-hook #'eat-eshell-visual-command-mode))
 
 ;;nyan-mode
 (when (package-installed-p 'nyan-mode)
