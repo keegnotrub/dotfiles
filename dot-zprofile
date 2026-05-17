@@ -6,6 +6,9 @@ export VISUAL="emacsclient"
 export LANG="en_US.UTF-8"
 export CLICOLOR="1"
 
+# Pi Coding Agent
+export PI_OFFLINE="1"
+
 # Ruby
 export RUBY_YJIT_ENABLE="1"
 export OBJC_DISABLE_INITIALIZE_FORK_SAFETY="YES"

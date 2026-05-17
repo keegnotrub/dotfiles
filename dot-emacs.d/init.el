@@ -29,16 +29,15 @@
                          ("elpa" . "https://elpa.gnu.org/packages/")
                          ("nongnu" . "https://elpa.nongnu.org/nongnu/")))
 
-(setq package-list '(arduino-mode
-                     nyan-mode
+(setq package-list '(nyan-mode
                      web-mode
                      markdown-mode
                      yaml-mode
                      git-modes
+                     pi-coding-agent
                      magit
                      eat
                      company
-                     bundler
                      inf-ruby))
 
 (package-initialize)
@@ -70,7 +69,7 @@
 (when (package-installed-p 'eshell)
   (setq initial-major-mode 'eshell-mode)
   (setq eshell-visual-commands
-      '("codex" "duckdb"))
+      '("pi" "duckdb"))
   (setq eshell-visual-subcommands
         '(("cloudkit" "console" "db:console" "shell")
           ("ollama" "run"))))
@@ -82,17 +81,18 @@
   (add-hook 'eat-mode-hook #'my-eat-semi-char-mode-map)
   (add-hook 'eshell-first-time-mode-hook #'eat-eshell-visual-command-mode))
 
+;;pi-coding-agent
+(when (package-installed-p 'pi-coding-agent)
+  (setq pi-coding-agent-prettify-tables nil)
+  (setq pi-coding-agent-quit-without-confirmation t))
+
 ;;nyan-mode
 (when (package-installed-p 'nyan-mode)
   (nyan-mode 1))
 
-;;arduino-mode
-(when (package-installed-p 'arduino-mode)
-  (add-to-list 'auto-mode-alist '("\\.ino\\'" . arduino-mode)))
-
 ;;ruby-mode
 (when (package-installed-p 'ruby-mode)
-  (add-hook 'ruby-mode-hook 'flymake-mode)
+  (add-hook 'ruby-mode-hook #'flymake-mode)
   (add-to-list 'auto-mode-alist '("Dockerfile" . dockerfile-ts-mode))
   (add-to-list 'auto-mode-alist '("Procfile" . yaml-mode))
   (add-to-list 'auto-mode-alist '("Procfile.dev" . yaml-mode)))
@@ -153,9 +153,9 @@
   compilation-mode "vite-ruby"
   "Major mode for vite ruby compilation.")
 
-(define-derived-mode agent-chat-mode
-  compilation-mode "agent-chat"
-  "Major mode for agent chat compilation.")
+(define-derived-mode bundle-mode
+  compilation-mode "bundle"
+  "Major mode for bundle compilation.")
 
 ;;custom defuns
 (require 'project)
@@ -172,27 +172,8 @@
     (when (file-exists-p tags-file-name)
       (call-interactively #'xref-find-definitions))))
 
-(defun project-agent-chat ()
-  (interactive)
-  (let ((default-directory (project-root (project-current t)))
-        (prompt (read-string-from-buffer "How can I help you today?" ""))
-        (tmp-file-name (make-temp-file "agent-chat-"))
-        (compilation-buffer-name-function 'project-prefixed-buffer-name))
-    (unless (string-empty-p prompt)
-      (with-temp-file tmp-file-name
-        (insert prompt))
-      (compile (format "cat %s | chat" tmp-file-name t) 'agent-chat-mode))))
-
-(defun project-agent-completion-at-point ()
-  (interactive)
-  (let ((default-directory (project-root (project-current t))))
-    (when (buffer-file-name)
-      (save-buffer)
-      (message
-       (format "Running: fim %d" (1- (point)) t))
-      (call-process "fim" (file-relative-name (buffer-file-name)) t nil (number-to-string (1- (point)))))))
-
-(defalias 'project-agent 'project-agent-chat)
+(defalias 'project-agent 'pi-coding-agent)
+(defalias 'project-agent-toggle 'pi-coding-agent-toggle)
 
 (defun project-rspec ()
   (interactive)
@@ -231,9 +212,17 @@
         (pop-to-buffer (project-prefixed-buffer-name "vite-ruby"))
       (compile "bundle exec vite dev" 'vite-ruby-mode))))
 
+(defun project-bundle-install ()
+  (interactive)
+  (let ((default-directory (project-root (project-current t)))
+        (compilation-buffer-name-function 'project-prefixed-buffer-name))
+    (if (comint-check-proc (project-prefixed-buffer-name "bundle"))
+        (pop-to-buffer (project-prefixed-buffer-name "bundle"))
+      (compile "bundle install" 'bundle-mode))))
+
 ;;key bindings
-(global-set-key (kbd "C-x p TAB") 'project-agent-completion-at-point)
-(global-set-key (kbd "C-x p a") 'project-agent-chat)
+(global-set-key (kbd "C-x p a") 'project-agent)
+(global-set-key (kbd "C-x p A") 'project-agent-toggle)
 
 ;;window systems
 (when window-system
