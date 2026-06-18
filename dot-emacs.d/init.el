@@ -51,7 +51,7 @@
 
 ;;magit
 (when (package-installed-p 'magit)
-  (add-hook 'git-commit-setup-hook 'git-commit-turn-on-flyspell))
+  (add-hook 'git-commit-setup-hook #'git-commit-turn-on-flyspell))
 
 ;;ediff
 (when (package-installed-p 'ediff)
@@ -138,7 +138,7 @@
 
 ;;compile
 (when (package-installed-p 'compile)
-  (add-hook 'compilation-filter-hook 'ansi-color-compilation-filter))
+  (add-hook 'compilation-filter-hook #'ansi-color-compilation-filter))
 
 ;;custom modes
 (define-derived-mode rspec-mode
@@ -219,6 +219,14 @@
     (if (comint-check-proc (project-prefixed-buffer-name "bundle"))
         (pop-to-buffer (project-prefixed-buffer-name "bundle"))
       (compile "bundle install" 'bundle-mode))))
+
+(defun project-bundle-exec-rails-db-migrate ()
+  (interactive)
+  (let ((default-directory (project-root (project-current t)))
+        (compilation-buffer-name-function 'project-prefixed-buffer-name))
+    (if (comint-check-proc (project-prefixed-buffer-name "bundle"))
+        (pop-to-buffer (project-prefixed-buffer-name "bundle"))
+      (compile "bundle exec rails db:migrate && RAILS_ENV=test bundle exec rails db:migrate" 'bundle-mode))))
 
 ;;key bindings
 (global-set-key (kbd "C-x p a") 'project-agent)

@@ -1,6 +1,7 @@
 [user]
   name = Ryan Krug
   email = ryank@kit.com
+  signingkey = C98B2EE2
 [init]
   defaultBranch = main
   templatedir = ~/.git_template
@@ -30,6 +31,7 @@
 [commit]
   template = ~/.gitmessage
   verbose = true
+  gpgsign = true
 [fetch]
   prune = true  
 [rebase]
