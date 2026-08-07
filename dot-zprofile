@@ -13,6 +13,9 @@ export PI_OFFLINE="1"
 export RUBY_YJIT_ENABLE="1"
 export OBJC_DISABLE_INITIALIZE_FORK_SAFETY="YES"
 
+# Husky
+export HUSKY="0"
+
 # Pasting
 alias csvpaste="pbpaste | tr -d '\r' | paste -s -d , -"
 
