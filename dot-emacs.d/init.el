@@ -34,7 +34,7 @@
                      markdown-mode
                      yaml-mode
                      git-modes
-                     pi-coding-agent
+                     pilish
                      magit
                      eat
                      company
@@ -71,8 +71,7 @@
   (setq eshell-visual-commands
       '("pi" "duckdb"))
   (setq eshell-visual-subcommands
-        '(("cloudkit" "console" "db:console" "shell")
-          ("ollama" "run"))))
+        '(("cloudkit" "console" "db:console" "shell"))))
 
 ;;eat
 (when (package-installed-p 'eat)
@@ -81,10 +80,10 @@
   (add-hook 'eat-mode-hook #'my-eat-semi-char-mode-map)
   (add-hook 'eshell-first-time-mode-hook #'eat-eshell-visual-command-mode))
 
-;;pi-coding-agent
-(when (package-installed-p 'pi-coding-agent)
-  (setq pi-coding-agent-prettify-tables nil)
-  (setq pi-coding-agent-quit-without-confirmation t))
+;;pilish
+(when (package-installed-p 'pilish)
+  (setq pilish-prettify-tables nil)
+  (setq pilish-quit-without-confirmation t))
 
 ;;nyan-mode
 (when (package-installed-p 'nyan-mode)
@@ -172,8 +171,8 @@
     (when (file-exists-p tags-file-name)
       (call-interactively #'xref-find-definitions))))
 
-(defalias 'project-agent 'pi-coding-agent)
-(defalias 'project-agent-toggle 'pi-coding-agent-toggle)
+(defalias 'project-agent 'pilish)
+(defalias 'project-agent-toggle 'pilish-toggle)
 
 (defun project-rspec ()
   (interactive)
